@@ -1,6 +1,6 @@
 {
   "name": "magnum-topo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Sorts magnum-loader plugins.",
   "main": "index.js",
   "scripts": {
