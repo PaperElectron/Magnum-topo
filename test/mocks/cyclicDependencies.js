@@ -13,10 +13,10 @@
  */
 
 module.exports = [
-  {name: 'Env', depends: []},
-  {name: 'SequelizePg', depends: ['Env']},
-  {name: 'Models', depends: ['SequelizePg']},
-  {name: 'Controllers', depends: ['Redis']},
-  {name: 'Redis', depends: ['Middleware']},
-  {name: 'Middleware', depends: ['Controllers']}
+  {configName: 'Env', provides: [], depends: []},
+  {configName: 'SequelizePg', provides: [], depends: ['Env']},
+  {configName: 'Models', provides: [], depends: ['SequelizePg']},
+  {configName: 'Controllers', provides: [], depends: ['Redis']},
+  {configName: 'Redis', provides: [], depends: ['Middleware']},
+  {configName: 'Middleware', provides: [], depends: ['Controllers']}
 ]

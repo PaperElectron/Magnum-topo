@@ -15,12 +15,12 @@
 //Expected ['Env', 'SequelizePg', 'Models', 'Controllers', 'Passport', 'PreMiddleware', 'Router', 'PostMiddleware']
 
 module.exports = [
-  {name: 'Env', depends: []},
-  {name: 'SequelizePg', depends: 'Env'},
-  {name: 'Passport', depends: ['Controllers'], provides: ['PreMiddleware']},
-  {name: 'Models', depends: ['SequelizePg']},
-  {name: 'Controllers', depends: ['Models']},
-  {name: 'Router', depends: ['Controllers', 'PreMiddleware']},
-  {name: 'PreMiddleware', depends: ['Controllers']},
-  {name: 'PostMiddleware', depends: ['Router']}
+  {configName: 'Env', depends: [], provides: []},
+  {configName: 'SequelizePg', depends: 'Env', provides: []},
+  {configName: 'Passport', depends: ['Controllers'], provides: ['PreMiddleware']},
+  {configName: 'Models', depends: ['SequelizePg'], provides: []},
+  {configName: 'Controllers', depends: ['Models'],provides: []},
+  {configName: 'Router', depends: ['Controllers', 'PreMiddleware'], provides: []},
+  {configName: 'PreMiddleware', depends: ['Controllers'],provides: []},
+  {configName: 'PostMiddleware', depends: ['Router'],provides: []}
 ]

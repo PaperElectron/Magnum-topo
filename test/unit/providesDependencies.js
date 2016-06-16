@@ -16,8 +16,14 @@ var provides = require('../mocks/providesDependencies');
  */
 
 tap.test('Plugins return ordered correctly by their expressed dependencies', function(t){
+
   var sorted = topo(provides)
-  t.plan(2)
+  var expected = ['Env', 'Merge', 'Passport', 'Strategy', 'Middleware', 'PreRouter', 'Setup']
+
+  t.plan(1 + expected.length)
+
   t.type(sorted, 'Array')
-  t.same(sorted, ['Env', 'Merge', 'Passport', 'Strategy', 'Middleware', 'PreRouter', 'Setup'])
+  sorted.forEach(function(v,k){
+    t.same(v.configName, expected[k], v.configName + ' - Should match expected order ' + expected[k])
+  })
 })

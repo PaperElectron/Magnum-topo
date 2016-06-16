@@ -10,7 +10,7 @@
 var tap = require('tap');
 var topo = require('../../index');
 var blankName = [
-  {name: '', depends: []},
+  {configName: '', depends: []},
 ]
 /**
  *
