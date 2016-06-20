@@ -24,9 +24,36 @@ var topo = require('./lib/topo')
 module.exports = function magnumTopo(pluginArray){
   var Sort = new topo()
 
+  var keyedParams = _.chain(pluginArray).map(function(plugin) {
+    if(plugin.paramName){
+      return {paramName: plugin.paramName, configName: plugin.configName}
+    }
+    return false
+  }).filter(Boolean).keyBy('paramName').value()
+
+
   _.each(pluginArray, function(o) {
-    Sort.add(o.configName, o.depends)
-    Sort.add(o.configName, o.optional)
+    var deps = _.isArray(o.depends) ? o.depends : _.isUndefined(o.depends) ? [] : [o.depends]
+    var pluginsRequiredDependencies = _.map(deps, function(d) {
+      if(_.isObject(keyedParams[d])){
+        return keyedParams[d].configName
+      }
+      return d
+    })
+
+    var opts = _.isArray(o.optional) ? o.optional : _.isUndefined(o.optional) ? [] : [o.optional]
+    var pluginsOptionalDependencies = _.map(opts, function(d) {
+      if(_.isObject(keyedParams[d])){
+        return keyedParams[d].configName
+      }
+      return d
+    })
+
+
+    Sort.add(o.configName, pluginsRequiredDependencies)
+    Sort.add(o.configName, pluginsOptionalDependencies)
+
+
     if(o.provides) {
       var provides = _.isArray(o.provides) ? o.provides : [o.provides]
       _.each(provides, function(p) {
@@ -38,7 +65,8 @@ module.exports = function magnumTopo(pluginArray){
   var Sorted = Sort.sort().reverse()
   var KeyedPlugins = _.keyBy(pluginArray, 'configName')
   return _.chain(Sorted).map(function(key){
-    return KeyedPlugins[key]
+    var byPluginName = KeyedPlugins[key]
+    return byPluginName
   })
     .filter(_.isObject)
     .value()

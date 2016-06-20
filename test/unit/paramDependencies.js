@@ -1,5 +1,5 @@
 /**
- * @file optionalDependencies
+ * @file paramDependencies
  * @author Jim Bulkowski <jim.b@paperelectron.com>
  * @project magnum-topo
  * @license MIT {@link http://opensource.org/licenses/MIT}
@@ -7,20 +7,19 @@
 
 'use strict';
 
-
-
 var tap = require('tap');
 var topo = require('../../index');
-var optional = require('../mocks/optionalDependencies');
+var provides = require('../mocks/paramDependencies');
+
 /**
  *
- * @module optionalDependencies
+ * @module paramDependencies
  */
 
-tap.test('Plugins return ordered correctly by their expressed dependencies', function(t){
+tap.test('Plugins return ordered correctly by injectable param name', function(t){
 
-  var sorted = topo(optional)
-  var expected = ['Env', 'Merge', 'Passport', 'Strategy', 'Middleware', 'Routes', 'PreRouter', 'Setup']
+  var sorted = topo(provides)
+  var expected = ['ApplicationEnv', 'SequelizePg', 'Middleware','Router', 'ApplicationServer']
 
   t.plan(1 + expected.length)
 
