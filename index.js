@@ -57,7 +57,9 @@ module.exports = function magnumTopo(pluginArray){
     if(o.provides) {
       var provides = _.isArray(o.provides) ? o.provides : [o.provides]
       _.each(provides, function(p) {
-        Sort.add(p, o.configName)
+        if(p !== o.configName){
+          Sort.add(p, o.configName)
+        }
       })
     }
   })

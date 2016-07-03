@@ -16,7 +16,7 @@
 
 module.exports = [
   {configName: 'Env', depends: [], provides: []},
-  {configName: 'Merge', depends: ['Env'], provides: 'Middleware'},
+  {configName: 'Merge', depends: ['Env'], provides: ['Middleware', 'Merge']},
   {configName: 'Passport', depends: ['Merge'], provides: ['Middleware']},
   {configName: 'Strategy', depends: ['Passport'], provides: ['Middleware']},
   {configName: 'Middleware', depends: [], provides: []},
