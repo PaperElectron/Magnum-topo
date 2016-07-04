@@ -21,9 +21,11 @@
 //Expected order = ['ApplicationEnv', 'SequelizePg','Middleware ,'Router', 'ApplicationServer']
 
 module.exports = [
-  {paramName: 'Env'   ,configName: 'ApplicationEnv', depends: [], provides: []},
-  {paramName: 'Server',configName: 'ApplicationServer', optional: ['Routes'], provides: []},
-  {paramName: 'Routes',configName: 'Router', depends: ['SQL', 'Middleware'], provides: []},
-  {paramName: 'SQL'   ,configName: 'SequelizePg', depends: ['Env'], provides: []},
-  {configName: 'Middleware', depends: ['Env'], provides: []}
+  {paramName: 'Env'   ,configName: 'ApplicationEnv', depends: [], provides: ['Env']},
+  {paramName: 'Server',configName: 'ApplicationServer', optional: ['Routes'], provides: ['Server']},
+  {paramName: 'Routes',configName: 'Router', depends: ['SQL', 'Middleware'], provides: ['Routes']},
+  {paramName: 'SQL'   ,configName: 'SequelizePg', depends: ['Env'], provides: ['SQL']},
+  {paramName: 'Middleware', configName: 'Middleware', depends: ['Env'], provides: []},
+  {paramName: 'Middleware', configName: 'Middleware2', depends: ['Env'], provides: []},
+  {paramName: 'Middleware', configName: 'Middleware3', depends: ['Env'], provides: []}
 ]
