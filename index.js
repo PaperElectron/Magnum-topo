@@ -26,6 +26,7 @@ module.exports = function magnumTopo(pluginArray){
 
   var groupedParams = _.chain(pluginArray)
     .map(function(plugin) {
+      // console.log(plugin.paramName, plugin.configName);
       if(plugin.paramName){
         return {paramName: plugin.paramName, configName: plugin.configName}
       }
@@ -83,12 +84,11 @@ module.exports = function magnumTopo(pluginArray){
   var Sorted = Sort.sort().reverse()
   var KeyedPlugins = _.keyBy(pluginArray, 'configName')
 
-  // console.log(KeyedPlugins);
-
-  return _.chain(Sorted).map(function(key){
-    var byPluginName = KeyedPlugins[key]
-    return byPluginName
-  })
+  return _.chain(Sorted)
+    .map(function(key){
+      var byPluginName = KeyedPlugins[key]
+      return byPluginName
+    })
     .filter(_.isObject)
     .value()
 
